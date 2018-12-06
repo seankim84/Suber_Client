@@ -1,5 +1,5 @@
 import reset from "styled-reset";
-import { createGlobalStyle } from "./typed-components";
+import { createGlobalStyle } from "./Components/typed-components";
 
 // tslint:disable-next-line
 createGlobalStyle`
