@@ -20,5 +20,5 @@ const Container = styled.input`
     font-weight: 300;
   }
 `;
-const input = ({ placeholder }) => <Container placeholder={placeholder} />;
-export default input;
+const Input = ({ placeholder, value }) => <Container placeholder={placeholder} value={value}/>;
+export default Input;
