@@ -1,8 +1,9 @@
 import React from "react";
 import Helmet from "react-helmet";
 import countries from "../../../countries";
-import BackArrow from '../../BackArrow/BackArrow';
+import BackArrow from "../../BackArrow/BackArrow";
 import Input from '../../Input';
+
 import styled from "../../typed-components";
 
 const Container = styled.div`
@@ -54,57 +55,57 @@ const Button = styled.button`
 `;
 
 interface IProps {
-    countryCode: string;
-    phoneNumber: string;
-    onInputChange: (
-        event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-    ) => void;
-    onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  countryCode: string;
+  phoneNumber: string;
+  onInputChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const PhoneLoginPresenter: React.SFC<IProps> = ({
-    countryCode,
-    phoneNumber,
-    onInputChange,
-    onSubmit
+  countryCode,
+  phoneNumber,
+  onInputChange,
+  onSubmit
 }) => (
-        <Container>
-            <Helmet>
-                <title>Phone Login | Number</title>
-            </Helmet>
-            <BackArrowExtended backTo={"/"} />
-            <Title>Enter your mobile number</Title>
-            <CountrySelect
-                value={countryCode}
-                name={"countryCode"}
-                onChange={onInputChange}
-            >
-                {countries.map((country, index) => (
-                    <CountryOption key={index} value={country.dial_code}>
-                        {country.flag} {country.name} ({country.dial_code})
+  <Container>
+    <Helmet>
+      <title>Phone Login | Sumber</title>
+    </Helmet>
+    <BackArrowExtended backTo={"/"} />
+    <Title>Enter your mobile number</Title>
+    <CountrySelect
+      value={countryCode}
+      name={"countryCode"}
+      onChange={onInputChange}
+    >
+      {countries.map((country, index) => (
+        <CountryOption key={index} value={country.dial_code}>
+          {country.flag} {country.name} ({country.dial_code})
         </CountryOption>
-                ))}
-            </CountrySelect>
-            <Form onSubmit={onSubmit}>
-                <Input
-                    placeholder={"053 690 2129"}
-                    value={phoneNumber}
-                    name={"phoneNumber"}
-                    onChange={onInputChange}
-                />
-                <Button>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill={"white"}
-                    >
-                        <path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z" />
-                    </svg>
-                </Button>
-            </Form>
-        </Container>
-    );
+      ))}
+    </CountrySelect>
+    <Form onSubmit={onSubmit}>
+      <Input
+        placeholder={"053 690 2129"}
+        value={phoneNumber}
+        name={"phoneNumber"}
+        onChange={onInputChange}
+      />
+      <Button>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill={"white"}
+        >
+          <path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z" />
+        </svg>
+      </Button>
+    </Form>
+  </Container>
+);
 
 export default PhoneLoginPresenter;

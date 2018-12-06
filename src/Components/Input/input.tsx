@@ -1,5 +1,6 @@
 import React from "react";
-import styled from "../typed-components";
+import styled from '../typed-components';
+
 const Container = styled.input`
   border: none;
   border-bottom: 2px solid ${props => props.theme.greyColor};
@@ -25,27 +26,27 @@ interface IProps {
   placeholder?: string;
   type?: string;
   required?: boolean;
-  value?: string;
+  value: any;
   name?: string;
   onChange: any;
 }
 
-const Input: React.SFC<IProps> = ({ 
+const Input: React.SFC<IProps> = ({
   placeholder = "",
   type = "text",
-  required = true, 
+  required = true,
   value,
-  name,
+  name = "",
   onChange
 }) => (
-  <Container 
-      type={type}
-      placeholder={placeholder} 
-      value={value}
-      required={required}
-      name={name}
+    <Container
       onChange={onChange}
-      />
+      name={name}
+      type={type}
+      required={required}
+      value={value}
+      placeholder={placeholder}
+    />
   );
 
 export default Input;
