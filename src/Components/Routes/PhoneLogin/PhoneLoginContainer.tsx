@@ -29,7 +29,7 @@ class PhoneLoginContainer extends React.Component<
   };
 
   public render() {
-    const { history } =  this.props;
+    const { history } = this.props;
     const { countryCode, phoneNumber } = this.state;
     return (
       <PhoneSignInMutation
@@ -39,8 +39,17 @@ class PhoneLoginContainer extends React.Component<
         }}
         onCompleted={data => {
           const { StartPhoneVerification } = data;
+          const phone = `${countryCode}${phoneNumber}`;
           if (StartPhoneVerification.ok) {
-            return;
+            toast.success("SMS Sent! Redirecting you...");
+            setTimeout(() => {
+              history.push({
+                pathname: "/verify-phone",
+                state: {
+                  phone
+                }
+              });
+            }, 2000);
           } else {
             toast.error(StartPhoneVerification.error);
           }
@@ -50,17 +59,9 @@ class PhoneLoginContainer extends React.Component<
           const onSubmit: React.FormEventHandler<HTMLFormElement> = event => {
             event.preventDefault();
             const phone = `${countryCode}${phoneNumber}`;
-            const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(
-              phone
-            );
+            const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(phone);
             if (isValid) {
-              // mutation();
-              history.push({
-                pathname: "/verify-phone",
-                state: {
-                  phone
-                }
-              });
+              mutation();
             } else {
               toast.error("Please write a valid phone number");
             }
