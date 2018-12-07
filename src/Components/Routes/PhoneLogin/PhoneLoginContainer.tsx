@@ -1,23 +1,28 @@
 import React from "react";
-import { Mutation, MutationUpdaterFn } from "react-apollo";
+import { Mutation } from "react-apollo";
 import { RouteComponentProps } from "react-router-dom";
 import { toast } from "react-toastify";
-import { startPhoneVerification ,startPhoneVerificationVariables,  } from "../../../types/api";
+import {
+  startPhoneVerification,
+  startPhoneVerificationVariables
+} from "../../../types/api";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
 import { PHONE_SIGN_IN } from "./PhoneQueries.queries";
-
 
 interface IState {
   countryCode: string;
   phoneNumber: string;
 }
 
-class PhoneSignInMutation extends Mutation<startPhoneVerification, startPhoneVerificationVariables> {}
+class PhoneSignInMutation extends Mutation<
+  startPhoneVerification,
+  startPhoneVerificationVariables
+  > { }
 
 class PhoneLoginContainer extends React.Component<
   RouteComponentProps<any>,
   IState
-> {
+  > {
   public state = {
     countryCode: "+82",
     phoneNumber: ""
@@ -31,7 +36,14 @@ class PhoneLoginContainer extends React.Component<
         variables={{
           phoneNumber: `${countryCode}${phoneNumber}`
         }}
-        update={this.afterSubmit}
+        onCompleted={data => {
+          const { StartPhoneVerification } = data;
+          if (StartPhoneVerification.ok) {
+            return;
+          } else {
+            toast.error(StartPhoneVerification.error);
+          }
+        }}
       >
         {(mutation, { loading }) => {
           const onSubmit: React.FormEventHandler<HTMLFormElement> = event => {
@@ -61,20 +73,14 @@ class PhoneLoginContainer extends React.Component<
 
   public onInputChange: React.ChangeEventHandler<
     HTMLInputElement | HTMLSelectElement
-  > = event => {
-    const {
-      target: { name, value }
-    } = event;
-    this.setState({
-      [name]: value
-    } as any);
-  };
-
-  public afterSubmit: MutationUpdaterFn = (cache, data) => {
-
-    // tslint:disable-next-line
-    console.log(data)
-  }
+    > = event => {
+      const {
+        target: { name, value }
+      } = event;
+      this.setState({
+        [name]: value
+      } as any);
+    };
 }
 
 export default PhoneLoginContainer;
