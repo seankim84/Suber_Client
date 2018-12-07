@@ -1,2 +1,2 @@
-import SocialLoginInPresenter from './SocialLoginPresenter';
-export default SocialLoginInPresenter;
+import SocialLoginContainer from './SocialLoginPresenter';
+export default SocialLoginContainer;
