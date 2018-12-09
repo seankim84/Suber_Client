@@ -20,12 +20,37 @@ interface IProps extends RouteComponentProps<any> {
 }
 
 class SocialLoginContainer extends React.Component<IProps, IState> {
+
+    public mutation: any;
+
     public render() {
-        return 
-            <LoginMutation mutaion={FACEBOOK_CONNECT} variables={}>
-                <SocialLoginPresenter />
-            </LoginMutation>
+        const { firstName, lastName, email, fbId } = this.state;
+         return (
+            <LoginMutation 
+                mutaion={FACEBOOK_CONNECT} 
+                variables={{
+                    email,
+                    fbId,
+                    firstName,
+                    lastName 
+            }}>
+            {( facebookConnect, { loading  }) => {
+                    this.mutation = facebookConnect;
+                    return <SocialLoginPresenter loginCallback={this.callback}/>
+        } 
+        }
+                
+            </LoginMutation> 
+         )
     }
+
+    public callback = (fbData) => {
+        this.setState({
+            email: fbData.email
+        })
+        this.mutation();
+    }
+
 }
 
 export default SocialLoginContainer
