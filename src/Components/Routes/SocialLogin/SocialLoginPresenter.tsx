@@ -1,5 +1,4 @@
 import React from "react";
-import { MuationFn, MutationFn } from 'react-apollo';
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import Helmet from "react-helmet";
 import BackArrow from "../../BackArrow";
@@ -32,7 +31,7 @@ const BackArrowExtended = styled(BackArrow)`
 `;
 
 interface IProps {
-    loginCallback: MutationFn
+  loginCallback: (response) => void;
 }
 
 const SocialLoginPresenter: React.SFC<IProps> = ({ loginCallback }) => (
@@ -43,10 +42,10 @@ const SocialLoginPresenter: React.SFC<IProps> = ({ loginCallback }) => (
     <Title>Choose an account</Title>
     <BackArrowExtended backTo={"/"} />
     <FacebookLogin
-      appId="100003228946683"
+      appId="1718196768212364"
       autoLoad={true}
-      fields="name,email,picture"
-      callback={null}
+      fields="name,first_name,last_name,email"
+      callback={loginCallback}
       render={renderProps => (
         <Link onClick={renderProps.onClick}>
           <Icon>
